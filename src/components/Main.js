@@ -1,35 +1,26 @@
-import { Redirect, Route } from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import classes from "./layout/Layout.module.css";
-import QuoteList from "./quotes/QuoteList";
-import QuoteForm from "./quotes/QuoteForm";
-import NoQuotesFound from "./quotes/NoQuotesFound";
+import AllQuotes from "./pages/AllQuotes";
+import NewQuote from "./pages/NewQuote";
+import QuoteDetail from "./pages/QuoteDetail";
 
 const Main = (props) => {
-  const quotes = [
-    // {
-    //   key: "1",
-    //   id: "1",
-    //   author: "author1",
-    //   text: "text1"
-    // },
-    // {
-    //   key: "2",
-    //   id: "2",
-    //   author: "author2",
-    //   text: "text2"
-    // }
-  ];
-  const allQuotesContent =
-    quotes.length > 0 ? <QuoteList quotes={quotes} /> : <NoQuotesFound />;
   return (
     <main className={classes.main}>
-      <Route path="/" exact>
-        <Redirect to="/all-quotes" />
-      </Route>
-      <Route path="/all-quotes">{allQuotesContent}</Route>
-      <Route path="/add-quotes">
-        <QuoteForm />
-      </Route>
+      <Switch>
+        <Route path="/" exact>
+          <Redirect to="/all-quotes" />
+        </Route>
+        <Route path="/all-quotes">
+          <AllQuotes />
+        </Route>
+        <Route path="/quotes/:quoteId">
+          <QuoteDetail />
+        </Route>
+        <Route path="/new-quotes">
+          <NewQuote />
+        </Route>
+      </Switch>
     </main>
   );
 };
