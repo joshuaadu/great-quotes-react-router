@@ -6,18 +6,18 @@ import NoQuotesFound from "./quotes/NoQuotesFound";
 
 const Main = (props) => {
   const quotes = [
-    {
-      key: "1",
-      id: "1",
-      author: "author1",
-      text: "text1"
-    },
-    {
-      key: "2",
-      id: "2",
-      author: "author2",
-      text: "text2"
-    }
+    // {
+    //   key: "1",
+    //   id: "1",
+    //   author: "author1",
+    //   text: "text1"
+    // },
+    // {
+    //   key: "2",
+    //   id: "2",
+    //   author: "author2",
+    //   text: "text2"
+    // }
   ];
   const allQuotesContent =
     quotes.length > 0 ? <QuoteList quotes={quotes} /> : <NoQuotesFound />;
