@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Redirect, Route, Switch } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 import QuoteForm from "../quotes/QuoteForm";
 import { QuoteContext } from "../store/quotes-data";
 
@@ -16,11 +16,6 @@ const NewQuote = (props) => {
   };
 
   return (
-    // <Switch>
-    //   <Route path="/new-quotes">
-    //     <QuoteForm onAddQuote={addQuoteHandler} onAdd={quoteAddedHandler} />;
-    //   </Route>
-    // </Switch>
     <>
       {!quoteAdded && (
         <QuoteForm onAddQuote={addQuoteHandler} onAdded={quoteAddedHandler} />

@@ -1,6 +1,4 @@
-import { useContext, useEffect, useRef } from "react";
-import { Redirect, Route } from "react-router-dom";
-import { QuoteContext } from "../store/quotes-data";
+import { useRef } from "react";
 
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
