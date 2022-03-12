@@ -7,7 +7,7 @@ const initialSate = {
 
 const quoteReducer = (state, action) => {
   if (action.type === "ADD") {
-    state.quotes.push(action.data);
+    state.quotes = [action.data, ...state.quotes];
   }
   if (action.type === "REMOVE") {
     state.quotes = state.quotes.filter((entry) => entry.id !== action.data.id);
