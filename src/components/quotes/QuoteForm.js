@@ -7,10 +7,10 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./QuoteForm.module.css";
 
 const QuoteForm = (props) => {
-  const { quotes } = useContext(QuoteContext);
+  const { onAddQuote, onAdded } = props;
   const authorInputRef = useRef();
   const textInputRef = useRef();
-  useEffect(() => console.log(quotes), [quotes]);
+
   function submitFormHandler(event) {
     event.preventDefault();
 
@@ -19,11 +19,12 @@ const QuoteForm = (props) => {
 
     // optional: Could validate here
 
-    props.onAddQuote({
+    onAddQuote({
       id: Date.now(),
       author: enteredAuthor,
       text: enteredText
     });
+    onAdded(true);
   }
 
   return (
