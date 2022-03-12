@@ -11,7 +11,7 @@ const MainNavigation = (props) => {
             <Link to="/all-quotes">All Quotes</Link>
           </li>
           <li>
-            <Link to="/add-quotes">Add Quotes</Link>
+            <Link to="/new-quotes">Add Quotes</Link>
           </li>
         </ul>
       </nav>

@@ -5,7 +5,7 @@ const NoQuotesFound = () => {
   return (
     <div className={classes.noquotes}>
       <p>No quotes found!</p>
-      <Link to="/add-quotes" className="btn">
+      <Link to="/new-quotes" className="btn">
         Add a Quote
       </Link>
     </div>

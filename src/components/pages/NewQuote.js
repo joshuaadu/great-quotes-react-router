@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import QuoteForm from "../quotes/QuoteForm";
 
 const NewQuote = (props) => {
