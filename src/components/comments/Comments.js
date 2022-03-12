@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { Link, Route, useParams } from "react-router-dom";
 
 import classes from "./Comments.module.css";
 import NewCommentForm from "./NewCommentForm";
 
 const Comments = () => {
+  const { quoteId } = useParams();
   const [isAddingComment, setIsAddingComment] = useState(false);
 
   const startAddCommentHandler = () => {
@@ -15,10 +17,19 @@ const Comments = () => {
       <h2>User Comments</h2>
       {!isAddingComment && (
         <button className="btn" onClick={startAddCommentHandler}>
-          Add a Comment
+          <Link
+            to={`/quotes/${quoteId}/comments/new`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            Add a Comment
+          </Link>
         </button>
       )}
-      {isAddingComment && <NewCommentForm />}
+      {isAddingComment && (
+        <Route path={`/quotes/${quoteId}/comments/new`}>
+          <NewCommentForm />
+        </Route>
+      )}
       <p>Comments...</p>
     </section>
   );

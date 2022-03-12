@@ -6,7 +6,7 @@ const QuoteDetail = (props) => {
   return (
     <>
       <p>{quoteId}</p>
-      <Route path="/quotes/:quoteId/comment">
+      <Route path="/quotes/:quoteId/comments">
         <Comments />
       </Route>
     </>
