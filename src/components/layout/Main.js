@@ -1,9 +1,9 @@
 import { Redirect, Route, Switch } from "react-router-dom";
-import classes from "./layout/Layout.module.css";
-import AllQuotes from "./pages/AllQuotes";
-import NewQuote from "./pages/NewQuote";
-import QuoteDetail from "./pages/QuoteDetail";
-import QuoteDataProvider from "./store/quotes-data";
+import classes from "./Layout.module.css";
+import AllQuotes from "../pages/AllQuotes";
+import NewQuote from "../pages/NewQuote";
+import QuoteDetail from "../pages/QuoteDetail";
+import QuoteDataProvider from "../store/quotes-data";
 
 const Main = (props) => {
   return (
