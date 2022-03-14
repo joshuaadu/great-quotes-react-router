@@ -1,10 +1,12 @@
-import { useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useRef } from "react";
+import { QuoteContext } from "../store/quotes-data";
 
 import classes from "./NewCommentForm.module.css";
 
 const NewCommentForm = (props) => {
-  const { quoteId } = useParams();
+  const { addComment } = useContext(QuoteContext);
+
+  const { quoteId, onCommentAdded } = props;
   const commentTextRef = useRef();
 
   const submitFormHandler = (event) => {
@@ -19,6 +21,8 @@ const NewCommentForm = (props) => {
     // optional: Could validate here
 
     // send comment to server
+    addComment(quoteId, commentTextRef.current.value);
+    onCommentAdded(false);
   };
 
   return (

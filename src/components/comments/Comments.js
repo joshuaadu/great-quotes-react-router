@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, Route, useParams } from "react-router-dom";
+import { QuoteContext } from "../store/quotes-data";
 
 import classes from "./Comments.module.css";
 import NewCommentForm from "./NewCommentForm";
@@ -8,8 +9,15 @@ const Comments = () => {
   const { quoteId } = useParams();
   const [isAddingComment, setIsAddingComment] = useState(false);
 
+  const { quotes } = useContext(QuoteContext);
+  console.log(quotes);
+
   const startAddCommentHandler = () => {
     setIsAddingComment(true);
+  };
+
+  const commentAddedHandler = (state) => {
+    setIsAddingComment(state);
   };
 
   return (
@@ -27,7 +35,10 @@ const Comments = () => {
       )}
       {isAddingComment && (
         <Route path={`/quotes/${quoteId}/comments/new`}>
-          <NewCommentForm />
+          <NewCommentForm
+            quoteId={quoteId}
+            onCommentAdded={commentAddedHandler}
+          />
         </Route>
       )}
       <p>Comments...</p>
