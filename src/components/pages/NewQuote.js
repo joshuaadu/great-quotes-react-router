@@ -1,32 +1,18 @@
-import { useContext, useState } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import QuoteForm from "../quotes/QuoteForm";
 import { QuoteContext } from "../store/quotes-data";
 
 const NewQuote = (props) => {
   const { addQuote } = useContext(QuoteContext);
-  const [quoteAdded, setQuoteAdded] = useState(false);
-
-  const quoteAddedHandler = (state) => {
-    setQuoteAdded(state);
-  };
+  const history = useHistory();
 
   const addQuoteHandler = (quote) => {
     addQuote(quote);
+    history.push("/all-quotes");
   };
 
-  return (
-    <>
-      {!quoteAdded && (
-        <QuoteForm onAddQuote={addQuoteHandler} onAdded={quoteAddedHandler} />
-      )}
-      {quoteAdded && (
-        <Route>
-          <Redirect to="/all-quotes" />
-        </Route>
-      )}
-    </>
-  );
+  return <QuoteForm onAddQuote={addQuoteHandler} />;
 };
 
 export default NewQuote;
