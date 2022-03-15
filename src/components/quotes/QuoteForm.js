@@ -6,13 +6,16 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./QuoteForm.module.css";
 
 const QuoteForm = (props) => {
-  const [isFocused, setIsFocused] = useState(false);
+  const [isEntering, setIsEntering] = useState(false);
   const { onAddQuote } = props;
   const authorInputRef = useRef();
   const textInputRef = useRef();
 
-  const focusFormHandler = () => {
-    setIsFocused(true);
+  const addFocusHandler = () => {
+    setIsEntering(true);
+  };
+  const finishedEnteringHandler = () => {
+    setIsEntering(false);
   };
   function submitFormHandler(event) {
     event.preventDefault();
@@ -31,11 +34,11 @@ const QuoteForm = (props) => {
 
   return (
     <>
-      <Prompt when={isFocused} message="Do you want to leave this page?" />
+      <Prompt when={isEntering} message="Do you want to leave this page?" />
       <Card>
         <form
           className={classes.form}
-          onFocus={focusFormHandler}
+          onFocus={addFocusHandler}
           onSubmit={submitFormHandler}
         >
           {props.isLoading && (
@@ -53,7 +56,9 @@ const QuoteForm = (props) => {
             <textarea id="text" rows="5" ref={textInputRef}></textarea>
           </div>
           <div className={classes.actions}>
-            <button className="btn">Add Quote</button>
+            <button onClick={finishedEnteringHandler} className="btn">
+              Add Quote
+            </button>
           </div>
         </form>
       </Card>
