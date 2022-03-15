@@ -9,11 +9,11 @@ const QuoteDetail = (props) => {
 
   const quotesMemoized = useMemo(() => quotes, [quotes]);
   console.log("quotes", quotesMemoized, quoteId);
-  const quote = quotesMemoized.find((quote) => quote.id == quoteId);
-  console.log("quotes", quotesMemoized, quote);
+  const quote = quotesMemoized.find((quote) => quote.id === quoteId);
+  console.log("quote", quote);
   return (
     <>
-      {/* <HighlightedQuote text={text} author={author} /> */}
+      <HighlightedQuote text={quote?.text} author={quote?.author} />
       <p>{quoteId}</p>
       <Route path="/quotes/:quoteId/comments">
         <Comments />
