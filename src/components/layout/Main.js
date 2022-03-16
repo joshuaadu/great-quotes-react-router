@@ -14,7 +14,7 @@ const Main = (props) => {
           <Route path="/" exact>
             <Redirect to="/quotes" />
           </Route>
-          <Route path="/quotes">
+          <Route path="/quotes" exact>
             <AllQuotes />
           </Route>
           <Route path="/quotes/:quoteId">

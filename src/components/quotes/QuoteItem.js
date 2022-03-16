@@ -3,6 +3,7 @@ import classes from "./QuoteItem.module.css";
 
 const QuoteItem = (props) => {
   const { id, author, text } = props;
+  console.log("id", id);
   return (
     <li className={classes.item}>
       <figure>
