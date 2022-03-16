@@ -12,9 +12,9 @@ const Main = (props) => {
       <main className={classes.main}>
         <Switch>
           <Route path="/" exact>
-            <Redirect to="/all-quotes" />
+            <Redirect to="/quotes" />
           </Route>
-          <Route path="/all-quotes">
+          <Route path="/quotes">
             <AllQuotes />
           </Route>
           <Route path="/quotes/:quoteId">

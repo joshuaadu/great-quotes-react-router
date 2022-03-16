@@ -9,7 +9,7 @@ const NewQuote = (props) => {
 
   const addQuoteHandler = (quote) => {
     addQuote(quote);
-    history.push("/all-quotes");
+    history.push("/quotes");
   };
 
   return <QuoteForm onAddQuote={addQuoteHandler} />;
