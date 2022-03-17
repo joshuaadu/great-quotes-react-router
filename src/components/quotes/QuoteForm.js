@@ -26,7 +26,6 @@ const QuoteForm = (props) => {
     // optional: Could validate here
 
     onAddQuote({
-      id: Date.now(),
       author: enteredAuthor,
       text: enteredText
     });

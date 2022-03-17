@@ -1,18 +1,29 @@
-import { useContext, useMemo } from "react";
+import { useEffect } from "react";
 import { Link, Route, useParams, useRouteMatch } from "react-router-dom";
-import { QuoteContext } from "../store/quotes-data";
+
+import useHttp from "../hooks/use-http";
+import { getSingleQuote } from "../lib/api";
 
 import HighlightedQuote from "../quotes/HighlightedQuote";
 import Comments from "../comments/Comments";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const QuoteDetail = (props) => {
   const { quoteId } = useParams();
-  const { quotes } = useContext(QuoteContext);
-  const match = useRouteMatch();
-  console.log("Route match", match);
+  const { sendRequest, status, data: quote } = useHttp(getSingleQuote);
 
-  const quotesMemoized = useMemo(() => quotes, [quotes]);
-  const quote = quotesMemoized.find((quote) => quote.id === quoteId);
+  const match = useRouteMatch();
+  useEffect(() => {
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
+
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   return (
     <>
