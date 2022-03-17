@@ -19,7 +19,11 @@ const AllQuotes = (props) => {
     return <QuoteList quotes={quotes} />;
   }
   if (status === "pending") {
-    return <LoadingSpinner />;
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
   }
 
   return <NoQuotesFound />;
