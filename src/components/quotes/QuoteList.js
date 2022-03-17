@@ -30,9 +30,10 @@ const QuoteList = (props) => {
   console.log("sorted quotes", sortedQuotes);
 
   const changeSortingHandler = () => {
-    history.push(
-      `${location.pathname}?sort=${sortingIsAscending ? "dsc" : "asc"}`
-    );
+    history.push({
+      pathname: location.pathname,
+      search: `?sort=${sortingIsAscending ? "dsc" : "asc"}`
+    });
   };
   return (
     <Fragment>
