@@ -1,11 +1,15 @@
 import { useContext, useMemo } from "react";
-import { Link, Route, useParams } from "react-router-dom";
+import { Link, Route, useParams, useRouteMatch } from "react-router-dom";
+import { QuoteContext } from "../store/quotes-data";
+
 import HighlightedQuote from "../quotes/HighlightedQuote";
 import Comments from "../comments/Comments";
-import { QuoteContext } from "../store/quotes-data";
+
 const QuoteDetail = (props) => {
   const { quoteId } = useParams();
   const { quotes } = useContext(QuoteContext);
+  const match = useRouteMatch();
+  console.log("Route match", match);
 
   const quotesMemoized = useMemo(() => quotes, [quotes]);
   const quote = quotesMemoized.find((quote) => quote.id === quoteId);
@@ -13,15 +17,15 @@ const QuoteDetail = (props) => {
   return (
     <>
       <HighlightedQuote text={quote?.text} author={quote?.author} />
-      <Route path={`/quotes/${quoteId}`} exact>
+      <Route path={`${match.url}`} exact>
         <div className="centered">
-          <Link className="btn--flat" to={`/quotes/${quoteId}/comments`}>
+          <Link className="btn--flat" to={`${match.url}/comments`}>
             Show Comments
           </Link>
         </div>
       </Route>
 
-      <Route path={`/quotes/${quoteId}/comments`}>
+      <Route path={`${match.url}/comments`}>
         <Comments />
       </Route>
     </>
