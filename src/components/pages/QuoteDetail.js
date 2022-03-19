@@ -10,9 +10,13 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 
 const QuoteDetail = (props) => {
   const { quoteId } = useParams();
-  const { sendRequest, status, data: quote } = useHttp(getSingleQuote);
-
   const match = useRouteMatch();
+
+  const { sendRequest, status, data: quote, error } = useHttp(
+    getSingleQuote,
+    true
+  );
+
   useEffect(() => {
     sendRequest(quoteId);
   }, [sendRequest, quoteId]);
@@ -24,7 +28,13 @@ const QuoteDetail = (props) => {
       </div>
     );
   }
+  if (error) {
+    return <p className="centered">{error}</p>;
+  }
 
+  if (!quote.text) {
+    return <p>No quote found!</p>;
+  }
   return (
     <>
       <HighlightedQuote text={quote?.text} author={quote?.author} />
@@ -36,7 +46,7 @@ const QuoteDetail = (props) => {
         </div>
       </Route>
 
-      <Route path={`${match.url}/comments`}>
+      <Route path={`${match.path}/comments`}>
         <Comments />
       </Route>
     </>

@@ -1,14 +1,20 @@
-import { useContext, useRef } from "react";
-import { QuoteContext } from "../store/quotes-data";
+import { useEffect, useRef } from "react";
+import { useHistory } from "react-router-dom";
+import useHttp from "../hooks/use-http";
+import { addComment } from "../lib/api";
 
 import classes from "./NewCommentForm.module.css";
 
 const NewCommentForm = (props) => {
-  const { addComment } = useContext(QuoteContext);
-
-  const { quoteId, onCommentAdded } = props;
+  const history = useHistory();
+  const { quoteId } = props;
   const commentTextRef = useRef();
-
+  const { sendRequest, data, status, error } = useHttp(addComment);
+  useEffect(() => {
+    if (status === "completed") {
+      history.push(`/quotes/${quoteId}/comments`);
+    }
+  });
   const submitFormHandler = (event) => {
     event.preventDefault();
     console.log(
@@ -18,11 +24,12 @@ const NewCommentForm = (props) => {
       "Comment: ",
       commentTextRef.current.value
     );
+
+    const comment = commentTextRef.current.value;
     // optional: Could validate here
 
     // send comment to server
-    addComment(quoteId, commentTextRef.current.value);
-    onCommentAdded(false);
+    sendRequest({ quoteId, commentData: comment });
   };
 
   return (
