@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import classes from "./layout/MainNavigation.module.css";
+import classes from "./MainNavigation.module.css";
 
 const MainNavigation = (props) => {
   return (
@@ -8,7 +8,7 @@ const MainNavigation = (props) => {
       <nav className={classes.nav}>
         <ul>
           <li>
-            <Link to="/all-quotes">All Quotes</Link>
+            <Link to="/quotes">All Quotes</Link>
           </li>
           <li>
             <Link to="/new-quotes">Add Quotes</Link>

@@ -1,8 +1,5 @@
-// import LoadingSpinner from "./components/UI/LoadingSpinner"
-// import MainNa
-
-import Main from "./components/Main";
-import MainNavigation from "./components/MainNavigation";
+import Main from "./components/layout/Main";
+import MainNavigation from "./components/layout/MainNavigation";
 
 function App() {
   return (

@@ -1,29 +1,30 @@
-import { useContext } from "react";
+import { useEffect } from "react";
+import useHttp from "../hooks/use-http";
+import { getAllQuotes } from "../lib/api";
 import NoQuotesFound from "../quotes/NoQuotesFound";
 import QuoteList from "../quotes/QuoteList";
-import { QuoteContext } from "../store/quotes-data";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const AllQuotes = (props) => {
-  const { quotes } = useContext(QuoteContext);
-  console.log(quotes);
-  // const quotes = [
-  //   // {
-  //   //   key: "1",
-  //   //   id: "1",
-  //   //   author: "author1",
-  //   //   text: "text1"
-  //   // },
-  //   // {
-  //   //   key: "2",
-  //   //   id: "2",
-  //   //   author: "author2",
-  //   //   text: "text2"
-  //   // }
-  // ];
-  const content =
-    quotes.length > 0 ? <QuoteList quotes={quotes} /> : <NoQuotesFound />;
+  const { sendRequest, status, data: quotes } = useHttp(getAllQuotes, true);
 
-  return content;
+  useEffect(() => {
+    sendRequest();
+  }, [sendRequest]);
+  console.log(quotes);
+
+  if (status === "completed" && quotes.length > 0) {
+    return <QuoteList quotes={quotes} />;
+  }
+  if (status === "pending") {
+    return (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  return <NoQuotesFound />;
 };
 
 export default AllQuotes;

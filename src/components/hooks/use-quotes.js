@@ -17,7 +17,7 @@ const quoteReducer = (state, action) => {
     const quoteIndex = state.quotes.findIndex(
       (entry) => entry.id !== action.data.id
     );
-    let currentQuoteComments = state.quotes[quoteIndex].comments;
+    let currentQuoteComments = state.quotes[quoteIndex]?.comments;
     currentQuoteComments
       ? (currentQuoteComments = [action.comment, ...currentQuoteComments])
       : (currentQuoteComments = [action.comment]);

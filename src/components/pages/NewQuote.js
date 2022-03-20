@@ -1,31 +1,25 @@
-import { useContext, useState } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import QuoteForm from "../quotes/QuoteForm";
-import { QuoteContext } from "../store/quotes-data";
+import useHttp from "../hooks/use-http";
+import { addQuote } from "../lib/api";
 
 const NewQuote = (props) => {
-  const { addQuote } = useContext(QuoteContext);
-  const [quoteAdded, setQuoteAdded] = useState(false);
+  const history = useHistory();
+  const { sendRequest, status } = useHttp(addQuote);
 
-  const quoteAddedHandler = (state) => {
-    setQuoteAdded(state);
-  };
+  useEffect(() => {
+    if (status === "completed") {
+      history.push("/quotes");
+    }
+  }, [status, history]);
 
   const addQuoteHandler = (quote) => {
-    addQuote(quote);
+    sendRequest(quote);
   };
 
   return (
-    <>
-      {!quoteAdded && (
-        <QuoteForm onAddQuote={addQuoteHandler} onAdded={quoteAddedHandler} />
-      )}
-      {quoteAdded && (
-        <Route>
-          <Redirect to="/all-quotes" />
-        </Route>
-      )}
-    </>
+    <QuoteForm isLoading={status === "pending"} onAddQuote={addQuoteHandler} />
   );
 };
 
