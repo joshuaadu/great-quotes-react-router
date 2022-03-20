@@ -6,30 +6,26 @@ import { addComment } from "../lib/api";
 import classes from "./NewCommentForm.module.css";
 
 const NewCommentForm = (props) => {
-  const history = useHistory();
-  const { quoteId } = props;
+  const { quoteId, onAddedComment } = props;
   const commentTextRef = useRef();
-  const { sendRequest, data, status, error } = useHttp(addComment);
+  const history = useHistory();
+  const { sendRequest, status, error } = useHttp(addComment);
+
   useEffect(() => {
-    if (status === "completed") {
+    if (status === "completed" && !error) {
+      onAddedComment();
       history.push(`/quotes/${quoteId}/comments`);
     }
-  });
+  }, [history, quoteId, status, error, onAddedComment]);
+
   const submitFormHandler = (event) => {
     event.preventDefault();
-    console.log(
-      "Quote ID: ",
-      quoteId,
-      "\n",
-      "Comment: ",
-      commentTextRef.current.value
-    );
 
     const comment = commentTextRef.current.value;
     // optional: Could validate here
 
     // send comment to server
-    sendRequest({ quoteId, commentData: comment });
+    sendRequest({ quoteId, commentData: { text: comment } });
   };
 
   return (

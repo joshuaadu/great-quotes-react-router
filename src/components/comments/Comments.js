@@ -1,20 +1,62 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Link, Route, useRouteMatch, useParams } from "react-router-dom";
 import useHttp from "../hooks/use-http.js";
 import { getAllComments } from "../lib/api.js";
 
 import classes from "./Comments.module.css";
+import CommentsList from "./CommentsList.js";
 import NewCommentForm from "./NewCommentForm";
+import LoadingSpinner from "../UI/LoadingSpinner";
 
 const Comments = () => {
   const { quoteId } = useParams();
   const match = useRouteMatch();
-  const { sendRequest, data, status } = useHttp(getAllComments, true);
+  const { sendRequest, data: loadedComments, status, error } = useHttp(
+    getAllComments,
+    true
+  );
 
   useEffect(() => {
-    sendRequest();
-  }, [sendRequest]);
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
   console.log("quoteId in Comments", quoteId);
+
+  let comments;
+  if (status === "pending") {
+    comments = (
+      <div className="centered">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  if (status === "completed" && loadedComments.length > 0) {
+    comments = <CommentsList comments={loadedComments} />;
+  }
+
+  if (
+    status === "completed" &&
+    (loadedComments.length === 0 || !loadedComments)
+  ) {
+    comments = (
+      <div className="centered">
+        <p>No comments add yet!</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    comments = (
+      <div className="centered">
+        <p>Failed to load comments!</p>;
+      </div>
+    );
+  }
+
+  const addedCommentHandler = useCallback(() => {
+    sendRequest(quoteId);
+  }, [sendRequest, quoteId]);
+
   return (
     <section className={classes.comments}>
       <h2>User Comments</h2>
@@ -29,84 +71,15 @@ const Comments = () => {
       </Route>
 
       <Route path={`${match.url}/new`}>
-        <NewCommentForm quoteId={quoteId} />
+        <NewCommentForm
+          quoteId={quoteId}
+          onAddedComment={addedCommentHandler}
+        />
       </Route>
 
-      <p>Comments...</p>
+      {comments}
     </section>
   );
 };
 
 export default Comments;
-
-// import { useState, useEffect, useCallback } from "react";
-// import { useParams } from "react-router-dom";
-
-// import classes from "./Comments.module.css";
-// import NewCommentForm from "./NewCommentForm";
-// import useHttp from "../hooks/use-http.js";
-// import { getAllComments } from "../lib/api.js";
-// import LoadingSpinner from "../UI/LoadingSpinner";
-// import CommentsList from "./CommentsList";
-
-// const Comments = () => {
-//   const [isAddingComment, setIsAddingComment] = useState(false);
-//   const params = useParams();
-
-//   const { quoteId } = params;
-
-//   const { sendRequest, status, data: loadedComments } = useHttp(getAllComments);
-
-//   useEffect(() => {
-//     sendRequest(quoteId);
-//   }, [quoteId, sendRequest]);
-
-//   const startAddCommentHandler = () => {
-//     setIsAddingComment(true);
-//   };
-
-//   const addedCommentHandler = useCallback(() => {
-//     sendRequest(quoteId);
-//   }, [sendRequest, quoteId]);
-
-//   let comments;
-
-//   if (status === "pending") {
-//     comments = (
-//       <div className="centered">
-//         <LoadingSpinner />
-//       </div>
-//     );
-//   }
-
-//   if (status === "completed" && loadedComments && loadedComments.length > 0) {
-//     comments = <CommentsList comments={loadedComments} />;
-//   }
-
-//   if (
-//     status === "completed" &&
-//     (!loadedComments || loadedComments.length === 0)
-//   ) {
-//     comments = <p className="centered">No comments were added yet!</p>;
-//   }
-
-//   return (
-//     <section className={classes.comments}>
-//       <h2>User Comments</h2>
-//       {!isAddingComment && (
-//         <button className="btn" onClick={startAddCommentHandler}>
-//           Add a Comment
-//         </button>
-//       )}
-//       {isAddingComment && (
-//         <NewCommentForm
-//           quoteId={quoteId}
-//           onAddedComment={addedCommentHandler}
-//         />
-//       )}
-//       {comments}
-//     </section>
-//   );
-// };
-
-// export default Comments;
