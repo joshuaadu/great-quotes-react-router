@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import { Link, Route, useRouteMatch, useParams } from "react-router-dom";
 import useHttp from "../hooks/use-http.js";
 import { getAllComments } from "../lib/api.js";

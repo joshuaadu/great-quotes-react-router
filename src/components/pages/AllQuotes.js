@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import useHttp from "../hooks/use-http";
 import { getAllQuotes } from "../lib/api";
 import NoQuotesFound from "../quotes/NoQuotesFound";
