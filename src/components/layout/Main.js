@@ -10,9 +10,9 @@ const Main = (props) => {
     <main className={classes.main}>
       <Routes>
         <Route path="/" element={<Navigate to="/quotes" />} />
-        <Route path="/quotes" element={<AllQuotes />} />
-        <Route path="/quotes/:quoteId" element={<QuoteDetail />} />
-        <Route path="/new-quotes" element={<QuoteDetail />} />
+        <Route path="quotes" element={<AllQuotes />} />
+        <Route path="quotes/:quoteId" element={<QuoteDetail />} />
+        <Route path="new-quotes" element={<NewQuote />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
     </main>
