@@ -36,18 +36,16 @@ const QuoteDetail = (props) => {
   }
   return (
     <>
+      <HighlightedQuote text={quote?.text} author={quote?.author} />
       <Routes>
         <Route
           path="/"
           element={
-            <>
-              <HighlightedQuote text={quote?.text} author={quote?.author} />
-              <div className="centered">
-                <Link className="btn--flat" to="comments">
-                  Show Comments
-                </Link>
-              </div>
-            </>
+            <div className="centered">
+              <Link className="btn--flat" to="comments">
+                Show Comments
+              </Link>
+            </div>
           }
         ></Route>
         <Route path="comments/*" element={<Comments />} />
