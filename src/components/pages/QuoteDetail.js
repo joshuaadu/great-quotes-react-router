@@ -1,11 +1,5 @@
 import { useEffect } from "react";
-import {
-  Link,
-  Route,
-  Routes,
-  useParams,
-  useRouteMatch
-} from "react-router-dom";
+import { Link, Route, Routes, useParams } from "react-router-dom";
 
 import useHttp from "../hooks/use-http";
 import { getSingleQuote } from "../lib/api";
@@ -56,7 +50,7 @@ const QuoteDetail = (props) => {
             </>
           }
         ></Route>
-        <Route path="comments" element={<Comments />} />
+        <Route path="comments/*" element={<Comments />} />
       </Routes>
     </>
   );

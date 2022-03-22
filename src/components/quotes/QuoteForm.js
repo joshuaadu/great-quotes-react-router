@@ -33,7 +33,8 @@ const QuoteForm = (props) => {
 
   return (
     <>
-      <Prompt when={isEntering} message="Do you want to leave this page?" />
+      {/* <Prompt when={isEntering} message="Do you want to leave this page?" /> */}
+
       <Card>
         <form
           className={classes.form}
@@ -61,6 +62,7 @@ const QuoteForm = (props) => {
           </div>
         </form>
       </Card>
+      <p>Quote Form</p>
     </>
   );
 };

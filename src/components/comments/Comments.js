@@ -1,5 +1,11 @@
 import { useCallback, useEffect } from "react";
-import { Link, Route, useRouteMatch, useParams } from "react-router-dom";
+import {
+  Link,
+  Route,
+  useRouteMatch,
+  useParams,
+  Routes
+} from "react-router-dom";
 import useHttp from "../hooks/use-http.js";
 import { getAllComments } from "../lib/api.js";
 
@@ -10,7 +16,6 @@ import LoadingSpinner from "../UI/LoadingSpinner";
 
 const Comments = () => {
   const { quoteId } = useParams();
-  const match = useRouteMatch();
   const { sendRequest, data: loadedComments, status, error } = useHttp(
     getAllComments,
     true
@@ -60,23 +65,30 @@ const Comments = () => {
   return (
     <section className={classes.comments}>
       <h2>User Comments</h2>
-      <Route path={match.url} exact>
-        <Link
-          to={`${match.url}/new`}
-          style={{ textDecoration: "none", color: "inherit" }}
-          className="btn"
-        >
-          Add a Comment
-        </Link>
-      </Route>
-
-      <Route path={`${match.url}/new`}>
-        <NewCommentForm
-          quoteId={quoteId}
-          onAddedComment={addedCommentHandler}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Link
+              to="new"
+              style={{ textDecoration: "none", color: "inherit" }}
+              className="btn"
+            >
+              Add a Comment
+            </Link>
+          }
         />
-      </Route>
 
+        <Route
+          path="new"
+          element={
+            <NewCommentForm
+              quoteId={quoteId}
+              onAddedComment={addedCommentHandler}
+            />
+          }
+        />
+      </Routes>
       {comments}
     </section>
   );

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useHttp from "../hooks/use-http";
 import { addComment } from "../lib/api";
 
@@ -8,15 +8,15 @@ import classes from "./NewCommentForm.module.css";
 const NewCommentForm = (props) => {
   const { quoteId, onAddedComment } = props;
   const commentTextRef = useRef();
-  const history = useHistory();
+  const navigation = useNavigate();
   const { sendRequest, status, error } = useHttp(addComment);
 
   useEffect(() => {
     if (status === "completed" && !error) {
       onAddedComment();
-      history.push(`/quotes/${quoteId}/comments`);
+      navigation(`/quotes/${quoteId}/comments`);
     }
-  }, [history, quoteId, status, error, onAddedComment]);
+  }, [navigation, quoteId, status, error, onAddedComment]);
 
   const submitFormHandler = (event) => {
     event.preventDefault();
