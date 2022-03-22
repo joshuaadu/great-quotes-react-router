@@ -11,7 +11,7 @@ const Main = (props) => {
       <Routes>
         <Route path="/" element={<Navigate to="/quotes" />} />
         <Route path="quotes" element={<AllQuotes />} />
-        <Route path="quotes/:quoteId" element={<QuoteDetail />} />
+        <Route path="quotes/:quoteId/*" element={<QuoteDetail />} />
         <Route path="new-quotes" element={<NewQuote />} />
         <Route path="*" element={<PageNotFound />} />
       </Routes>
