@@ -1,4 +1,4 @@
-import { Navigate, Redirect, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import classes from "./Layout.module.css";
 import AllQuotes from "../pages/AllQuotes";
 import NewQuote from "../pages/NewQuote";
@@ -9,6 +9,7 @@ const Main = (props) => {
   return (
     <main className={classes.main}>
       <Routes>
+        {/* <Route index element={<AllQuotes />} /> */}
         <Route path="/" element={<Navigate to="/quotes" />} />
         <Route path="quotes" element={<AllQuotes />} />
         <Route path="quotes/:quoteId/*" element={<QuoteDetail />} />
