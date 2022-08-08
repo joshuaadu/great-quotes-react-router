@@ -6,14 +6,17 @@ import QuoteList from "../quotes/QuoteList";
 import LoadingSpinner from "../UI/LoadingSpinner";
 
 const AllQuotes = (props) => {
-  const { sendRequest, status, data: quotes } = useHttp(getAllQuotes, true);
+  const { sendRequest, status, data: quotes, error } = useHttp(
+    getAllQuotes,
+    true
+  );
 
   useEffect(() => {
     sendRequest();
   }, [sendRequest]);
   console.log(quotes);
 
-  if (status === "completed" && quotes.length > 0) {
+  if (status === "completed" && quotes?.length > 0) {
     return <QuoteList quotes={quotes} />;
   }
   if (status === "pending") {
@@ -24,7 +27,7 @@ const AllQuotes = (props) => {
     );
   }
 
-  return <NoQuotesFound />;
+  return <NoQuotesFound message={error} />;
 };
 
 export default AllQuotes;
