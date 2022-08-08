@@ -6,14 +6,13 @@ import { addQuote } from "../lib/api";
 
 const NewQuote = (props) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { sendRequest, status, error } = useHttp(addQuote);
 
   useEffect(() => {
     if (status === "completed" && !error) {
       navigate("/quotes");
     }
-  }, [status, navigate, error, location]);
+  }, [status, navigate, error]);
 
   const addQuoteHandler = (quote) => {
     sendRequest(quote);
